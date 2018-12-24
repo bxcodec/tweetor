@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mock-tweet
+  namespace: staging
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: mock.tweet.tweetor.xyz
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: mock-tweet
+          servicePort: 8000

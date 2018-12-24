@@ -1,0 +1,16 @@
+version: "2.3"
+services:
+  web:
+      container_name: tweet_api 
+      image: bxcodec/tweetor:latest
+      ports:
+        - 9090:9090
+      depends_on:
+        - redis
+      volumes:
+        - ./config.toml:/app/config.toml
+  redis:
+      container_name: redis
+      image: redis:5.0.3-alpine3.8
+      ports:
+        - 6379:6379

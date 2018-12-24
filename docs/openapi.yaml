@@ -1,0 +1,118 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Secret Tweetor REST API
+  description: This API is used for Tweet management service
+servers:
+  - url: http://tweetor.swagger.io/v1
+paths:
+  /tweets:
+    post:
+      tags: 
+        - tweet
+      requestBody:
+        description: "Request body"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tweet'
+      responses:
+        "200":
+          description: Get Tweet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tweet'
+              example:
+                id: "abc-f45def-5sdaf-5636f"
+                text: "Merry Christmast Everyone!!!"
+                createdTime: "2018-12-24T09:21:41.827Z"
+    get:
+      tags: 
+        - tweet
+      parameters: 
+        - name: limit
+          in: query
+          schema:
+            type: integer 
+        - name: cursor
+          in: query
+          schema:
+            type: string
+            
+      responses:
+        "200":
+          description: "List Tweet Item"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tweet'
+              example:
+              - id: "abc-f45def-5sdaf-5636f"
+                text: "Merry Christmast Everyone!!!"
+                createdTime: "2018-12-24T09:21:41.827Z"
+              - id: "abc-f45def-5sdaf-5636f"
+                text: "I believe santa will give me a great present"
+                createdTime: "2018-12-23T09:21:41.827Z"
+              - id: "abc-f45def-5sdaf-5636f"
+                text: "Hello my secret santa. Thank you!!!"
+                createdTime: "2018-12-22T09:21:41.827Z"
+  /tweets/{id}:
+    get:
+      tags: 
+        - tweet
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Get Tweet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tweet'
+              example:
+                id: "abc-f45def-5sdaf-5636f"
+                text: "Merry Christmast Everyone!!!"
+                createdTime: "2018-12-24T09:21:41.827Z"
+        
+        '404':
+          description: "Tweet doesn't exists"
+    delete:
+      tags: 
+        - tweet
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: "Tweet deleted successfully"
+        '404':
+          description: "Tweet doesn't exists"
+components:
+  schemas: 
+    Tweet:
+      required:
+        - name
+      properties:
+        id:
+          description: "generated from DB. Not required"
+          type: string
+          example: 'abc-f45def-5sdaf-5636f'
+          readOnly: true  
+        text:
+          type: string
+          example: 'Merry Christmast'
+        createdTime:
+          type: string
+          format: date-time
+          readOnly: true 
+        

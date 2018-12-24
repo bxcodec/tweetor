@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: tweetor
+  namespace: staging
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: tweet.tweetor.xyz
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: tweetor
+          servicePort: 9090
