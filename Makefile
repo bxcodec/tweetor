@@ -11,7 +11,7 @@ vendor:
 engine:
 	@go build -o engine app/main.go
 
-run: 
+run: docker
 	@docker-compose up -d
 
 stop:
