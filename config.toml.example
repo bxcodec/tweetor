@@ -1,0 +1,11 @@
+title = "Tweet Service Configuraiton"
+
+# address
+address = ":9090"
+
+[redis]
+    address = "redis:6379"
+    db = 0
+    pass = ""
+[context]
+    timeout = 2
